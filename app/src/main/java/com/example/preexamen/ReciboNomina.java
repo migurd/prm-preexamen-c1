@@ -1,4 +1,5 @@
 package com.example.preexamen;
+import java.util.Random;
 
 public class ReciboNomina {
     private int numRecibo;
@@ -80,6 +81,11 @@ public class ReciboNomina {
 
     public void setImpuestoPorcentaje(double impuestoPorcentaje) {
         this.impuestoPorcentaje = impuestoPorcentaje;
+    }
+
+    public int generateId() {
+        Random rand = new Random();
+        return rand.nextInt(999) + 1;
     }
 
     public double calcularSubtotal() {
