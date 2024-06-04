@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,9 +25,18 @@ public class MainActivity extends AppCompatActivity {
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ReciboNominaActivity.class);
-                intent.putExtra("nombre", inNombre.getText().toString());
-                startActivity(intent);
+                try {
+                    if (inNombre.getText().toString().isEmpty())
+                        throw new IllegalArgumentException("Inserte nombre, por favor");
+
+                    Intent intent = new Intent(MainActivity.this, ReciboNominaActivity.class);
+                    intent.putExtra("nombre", inNombre.getText().toString());
+                    startActivity(intent);
+                } catch(IllegalArgumentException error) {
+                    Toast.makeText(MainActivity.this, error.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

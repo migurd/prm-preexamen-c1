@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,15 +38,26 @@ public class ReciboNominaActivity extends AppCompatActivity {
         btnCalcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reb.setHorasTrabajoNormal(Double.parseDouble(inHorasTrabajadas.getText().toString()));
-                reb.setHorasTrabajoExtra(Double.parseDouble(inHorasExtras.getText().toString()));
+                try {
+                    reb.setHorasTrabajoNormal(Double.parseDouble(inHorasTrabajadas.getText().toString()));
+                    reb.setHorasTrabajoExtra(Double.parseDouble(inHorasExtras.getText().toString()));
 
-                int rbSelected = rbAux.isSelected() ? 1 : rbAlb.isSelected() ? 2 : rbIng.isSelected() ? 3 : 0;
-                reb.setPuesto(rbSelected);
+                    if (reb.getHorasTrabajoNormal() < 0 || reb.getHorasTrabajoExtra() < 0)
+                        throw new IllegalArgumentException("Inserte valores positivos, por favor.");
 
-                outSubtotal.setText(doubleToNominated(reb.calcularSubtotal()));
-                outImpuesto.setText(doubleToNominated(reb.calcularImpuesto()));
-                outTotal.setText(doubleToNominated(reb.calcularTotal()));
+                    int rbSelected = rbAux.isSelected() ? 1 : rbAlb.isSelected() ? 2 : rbIng.isSelected() ? 3 : 0;
+
+                    if (rbSelected == 0 )
+                        throw new IllegalArgumentException("Elija un puesto, por favor.");
+
+                    reb.setPuesto(rbSelected);
+
+                    outSubtotal.setText(doubleToNominated(reb.calcularSubtotal()));
+                    outImpuesto.setText(doubleToNominated(reb.calcularImpuesto()));
+                    outTotal.setText(doubleToNominated(reb.calcularTotal()));
+                } catch (IllegalArgumentException error) {
+                    Toast.makeText(ReciboNominaActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
