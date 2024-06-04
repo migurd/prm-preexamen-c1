@@ -98,12 +98,14 @@ public class ReciboNominaActivity extends AppCompatActivity {
         outSubtotal = findViewById(R.id.outSubtotal);
         outImpuesto = findViewById(R.id.outImpuesto);
         outTotal = findViewById(R.id.outTotalPagar);
+        btnCalcular = findViewById(R.id.btnCalcular);
+        btnLimpiar = findViewById(R.id.btnLimpiar);
+        btnRegresar = findViewById(R.id.btnRegresar);
 
         reb = new ReciboNomina();
 
         //        set values for folio and name
         String name = getIntent().getStringExtra("nombre");
-        int folio = getIntent().getIntExtra("folio", 1);
 
         reb.setNombre(name);
         reb.setNumRecibo(reb.generateId());

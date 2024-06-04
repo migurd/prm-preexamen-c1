@@ -60,7 +60,7 @@
             android:padding="10dp"
             android:textSize="22sp"
             android:layout_marginHorizontal="30dp"
-            android:text="btnSalir"/>
+            android:text="Salir"/>
 
     </LinearLayout>
 

@@ -22,14 +22,16 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        init();
+
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ReciboNominaActivity.class);
                 try {
                     if (inNombre.getText().toString().isEmpty())
                         throw new IllegalArgumentException("Inserte nombre, por favor");
 
-                    Intent intent = new Intent(MainActivity.this, ReciboNominaActivity.class);
                     intent.putExtra("nombre", inNombre.getText().toString());
                     startActivity(intent);
                 } catch(IllegalArgumentException error) {
