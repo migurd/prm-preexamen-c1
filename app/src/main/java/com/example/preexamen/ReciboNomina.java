@@ -89,11 +89,11 @@ public class ReciboNomina {
     }
 
     public double calcularSubtotal() {
-        final int PAGOBASE = 200;
-        int bono = puesto == 1 ? 20 : puesto == 2 ? 50 : puesto == 3 ? 100 : 0;
-        int pagoBaseBono = PAGOBASE + (PAGOBASE * (bono / 100));
+        final double PAGOBASE = 200.0; // Ensure constant is treated as double
+        double bono = puesto == 1 ? 0.2 : puesto == 2 ? 0.5 : puesto == 3 ? 1.0 : 0; // Use double literals
+        double pagoBaseBono = PAGOBASE * (1 + bono); // Simplify calculation
 
-        return pagoBaseBono * this.horasTrabajoNormal + pagoBaseBono * 2 * horasTrabajoExtra;
+        return pagoBaseBono * this.horasTrabajoNormal + pagoBaseBono * 2.0 * this.horasTrabajoExtra; // Ensure double literals are used
     }
 
     public double calcularImpuesto() {

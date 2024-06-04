@@ -45,9 +45,9 @@ public class ReciboNominaActivity extends AppCompatActivity {
                     if (reb.getHorasTrabajoNormal() < 0 || reb.getHorasTrabajoExtra() < 0)
                         throw new IllegalArgumentException("Inserte valores positivos, por favor.");
 
-                    int rbSelected = rbAux.isSelected() ? 1 : rbAlb.isSelected() ? 2 : rbIng.isSelected() ? 3 : 0;
+                    int rbSelected = rbAux.isChecked() ? 1 : rbAlb.isChecked() ? 2 : rbIng.isChecked() ? 3 : 0;
 
-                    if (rbSelected == 0 )
+                    if (rbSelected == 0)
                         throw new IllegalArgumentException("Elija un puesto, por favor.");
 
                     reb.setPuesto(rbSelected);
@@ -55,6 +55,8 @@ public class ReciboNominaActivity extends AppCompatActivity {
                     outSubtotal.setText(doubleToNominated(reb.calcularSubtotal()));
                     outImpuesto.setText(doubleToNominated(reb.calcularImpuesto()));
                     outTotal.setText(doubleToNominated(reb.calcularTotal()));
+                } catch (NumberFormatException error) {
+                    Toast.makeText(ReciboNominaActivity.this, "Rellena los campos correctamente, por favor.", Toast.LENGTH_SHORT).show();
                 } catch (IllegalArgumentException error) {
                     Toast.makeText(ReciboNominaActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -64,12 +66,14 @@ public class ReciboNominaActivity extends AppCompatActivity {
         btnLimpiar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                inHorasTrabajadas.setText("");
+                inHorasExtras.setText("");
                 outSubtotal.setText("");
                 outImpuesto.setText("");
                 outTotal.setText("");
-                rbAux.setActivated(false);
-                rbAlb.setActivated(false);
-                rbIng.setActivated(false);
+                rbAux.setChecked(false);
+                rbAlb.setChecked(false);
+                rbIng.setChecked(false);
             }
         });
 
@@ -114,7 +118,7 @@ public class ReciboNominaActivity extends AppCompatActivity {
     }
 
     public String doubleToNominated(double n) {
-        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormat df = new DecimalFormat("0.00");
         return df.format(n);
     }
 }
