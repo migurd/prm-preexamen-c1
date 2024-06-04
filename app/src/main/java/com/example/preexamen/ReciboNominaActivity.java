@@ -49,6 +49,25 @@ public class ReciboNominaActivity extends AppCompatActivity {
             }
         });
 
+        btnLimpiar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                outSubtotal.setText("");
+                outImpuesto.setText("");
+                outTotal.setText("");
+                rbAux.setActivated(false);
+                rbAlb.setActivated(false);
+                rbIng.setActivated(false);
+            }
+        });
+
+        btnRegresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
